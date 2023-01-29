@@ -3,6 +3,7 @@ from django.contrib import messages,auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from .models import FormCantato
 # Create your views here.
 
 def login(request):
@@ -82,5 +83,6 @@ def cadastro(request):
 
 @login_required(redirect_field_name='login')
 def dashboard(request):
-    return render(request,'accounts/dashboard.html')
+    form = FormCantato()
+    return render(request,'accounts/dashboard.html',{'form':form})
     

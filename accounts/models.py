@@ -1,3 +1,9 @@
 from django.db import models
+from contatos.models import contato
+from django import forms
 
-# Create your models here.
+
+class FormCantato(forms.ModelForm):
+    class Meta:
+        model = contato
+        exclude = ()
