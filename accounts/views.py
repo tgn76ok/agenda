@@ -83,6 +83,16 @@ def cadastro(request):
 
 @login_required(redirect_field_name='login')
 def dashboard(request):
-    form = FormCantato()
-    return render(request,'accounts/dashboard.html',{'form':form})
+    if request.method != 'POST':
+        form = FormCantato()
+        return render(request,'accounts/dashboard.html',{'form':form})
     
+    form = FormCantato(request.POST,request.FILES)
+    
+    if not form.is_valid():
+        messages.error(request,'Erro a envio')
+        return render(request,'accounts/dashboard.html',{'form':form})
+    
+    form.save()
+    messages.success(request,f'Contato {request.POST.get("nome")} salvo com sucesso')
+    return redirect('dashboard')
