@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+login
+  <form method='POST' action="{% url 'login'%}">
+    {% include 'parcias/_messagens.html' %}
+    {% csrf_token %}
+
+
+    <div class="form-group">
+      <label >Usuario</label>
+      <input type="text" class="form-control" value="{{request.POST.usuario}}" name="usuario"  >
+    </div>
+
+    <div class="form-group">
+        <label >Senha</label>
+        <input type="password" class="form-control"  value="{{request.POST.senha}}"  name="senha"  >
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+{% endblock conteudo %}
+
+

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'contatos.apps.ContatosConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,14 @@ MEDIA_URL = 'medis/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#mensagens
+from django.contrib.messages import constants
+
+MESSAGE_TAGS= {
+    constants.ERROR:'alert-danger',
+    constants.WARNING:'alert-warning',
+    constants.DEBUG:'alert-info',
+    constants.SUCCESS:'alert-success',
+    constants.INFO:'alert-info',
+    
+}

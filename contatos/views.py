@@ -1,12 +1,14 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import contato
 from django.http import Http404
 from django.core.paginator  import Paginator
 from django.db.models import Q,Value
 from django.db.models.functions import Concat
+from django.contrib import messages
 # Create your views here.
 
 def index(resquest):
+
     contatos = contato.objects.order_by('-id')
     paginator = Paginator(contatos, 2) # Show 25 contacts per page.
 
@@ -41,7 +43,11 @@ def busca(resquest):
 
     termo = resquest.GET.get('termo')
     if termo is None or not  termo:
-        raise Http404()    
+        messages.add_message(resquest,
+                             messages.ERROR,
+                             'Campo termo nao pode ficar vaziu')
+        return redirect('index')
+        
     campos = Concat('nome',Value(' '),'sobrenome')
     contatos = contato.objects.annotate(
         nome_completo = campos
